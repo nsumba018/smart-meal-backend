@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "mealbooking")
+@Table(name = "meal_booking")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,6 +21,7 @@ public class MealBooking {
     @Column(name = "meal_date")
     private LocalDate mealDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private BookingStatus status;
 
@@ -31,10 +32,10 @@ public class MealBooking {
     private double price;
 
     @ManyToOne
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
-    @Column(name = "caterer_id")
+    @JoinColumn(name = "caterer_id")
     private Caterer caterer;
 }

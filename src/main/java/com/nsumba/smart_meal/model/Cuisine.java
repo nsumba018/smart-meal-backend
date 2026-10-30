@@ -24,5 +24,5 @@ public class Cuisine {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "cuisines")
-    List<Caterer> caterers = new ArrayList<>();
+    private List<Caterer> caterers = new ArrayList<>();
 }

@@ -16,7 +16,7 @@ public class Counter {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name="counter_number")
+    @Column(name="counter_number", unique = true)
     private int counterNumber;
 
     @Column(name = "name")

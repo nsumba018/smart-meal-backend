@@ -26,10 +26,10 @@ public class Caterer {
     private String lastName;
 
     @Column(name = "phone")
-    private String phoneNumber;
+    private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "counter_id")
+    @JoinColumn(name = "counter_id", nullable = true)
     private Counter counter;
 
     @ManyToMany
