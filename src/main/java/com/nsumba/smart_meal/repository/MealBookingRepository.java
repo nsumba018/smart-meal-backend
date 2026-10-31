@@ -22,6 +22,10 @@ public interface MealBookingRepository extends JpaRepository<MealBooking, UUID> 
     // D1
     boolean existsByCatererIdAndMealDateAndStatusNot(UUID catererId, LocalDate mealDate, BookingStatus status);
 
+    // Bonus dashboard
+    long countByMealDate(LocalDate date);
+    long countByStatus(BookingStatus status);
+
     // F1
     @Query("select m.status, count(m) from MealBooking m group by m.status")
     List<Object[]> countMealBookingsByStatus();

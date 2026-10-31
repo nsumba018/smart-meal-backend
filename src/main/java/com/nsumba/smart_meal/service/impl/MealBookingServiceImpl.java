@@ -6,6 +6,8 @@ import com.nsumba.smart_meal.repository.MealBookingRepository;
 import com.nsumba.smart_meal.repository.PayrollDeductionRepository;
 import com.nsumba.smart_meal.service.MealBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -94,6 +96,12 @@ public class MealBookingServiceImpl implements MealBookingService {
         }else{
             return "Cannot change status from " + oldStatus + " to " + status;
         }
+    }
+
+    // Bonus
+    @Override
+    public Page<MealBooking> getMealBookingsPage(Pageable pageable) {
+        return mealBookingRepository.findAll(pageable);
     }
 
     // F1

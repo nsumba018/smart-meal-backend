@@ -4,6 +4,10 @@ import com.nsumba.smart_meal.model.BookingStatus;
 import com.nsumba.smart_meal.model.MealBooking;
 import com.nsumba.smart_meal.service.MealBookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,21 @@ public class MealBookingContoller {
         }else{
             return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
         }
+    }
+
+    // Bonus
+    @GetMapping("/page")
+    public ResponseEntity<?> getMealBookingsPage(@RequestParam int page, @RequestParam int size,
+                                                 @RequestParam String sort){
+        String[] pieces = sort.split(",");
+        Pageable pageable;
+        if(pieces[1].equals("desc")){
+            pageable = PageRequest.of(page, size, Sort.by(pieces[0]).descending());
+        }else{
+            pageable = PageRequest.of(page, size, Sort.by(pieces[0]).ascending());
+        }
+        Page<MealBooking> mealBookingsPage = mealBookingService.getMealBookingsPage(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(mealBookingsPage);
     }
 
     // F1
