@@ -22,8 +22,15 @@ public class MealBookingContoller {
 
     @PostMapping("/save")
     public ResponseEntity<String> saveMealBooking(@RequestBody MealBooking mealBooking){
+        // D1
         String returnedMsg = mealBookingService.saveMealBooking(mealBooking);
-        return ResponseEntity.status(HttpStatus.CREATED).body(returnedMsg);
+        if(returnedMsg.equals("Meal booking saved successfully")){
+            return ResponseEntity.status(HttpStatus.CREATED).body(returnedMsg);
+        }else if(returnedMsg.equals("Meal booking date cannot be in the past")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnedMsg);
+        }else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(returnedMsg);
+        }
     }
 
     @GetMapping("/all")
@@ -58,6 +65,19 @@ public class MealBookingContoller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
         }
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+    }
+
+    // D2
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> updateMealBookingStatus(@PathVariable UUID id, @RequestParam BookingStatus status){
+        String returnedMsg = mealBookingService.updateMealBookingStatus(id, status);
+        if(returnedMsg.equals("The meal booking with that id does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
+        }else if(returnedMsg.startsWith("Cannot change status")){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(returnedMsg);
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+        }
     }
 
     // B2

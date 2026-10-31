@@ -20,6 +20,16 @@ public class MealBookingServiceImpl implements MealBookingService {
 
     @Override
     public String saveMealBooking(MealBooking mealBooking) {
+        // D1
+        if(mealBooking.getMealDate().isBefore(LocalDate.now())){
+            return "Meal booking date cannot be in the past";
+        }
+        boolean alreadyBooked = mealBookingRepository.existsByCatererIdAndMealDateAndStatusNot(
+                mealBooking.getCaterer().getId(), mealBooking.getMealDate(), BookingStatus.CANCELLED);
+        if(alreadyBooked){
+            return "Caterer already has a meal booking on that date";
+        }
+        mealBooking.setStatus(BookingStatus.BOOKED);
         mealBookingRepository.save(mealBooking);
         return "Meal booking saved successfully";
     }
@@ -52,6 +62,30 @@ public class MealBookingServiceImpl implements MealBookingService {
         }else{
             mealBookingRepository.deleteById(id);
             return "Meal booking deleted successfully";
+        }
+    }
+
+    // D2
+    @Override
+    public String updateMealBookingStatus(UUID id, BookingStatus status) {
+        Optional<MealBooking> mealBooking = mealBookingRepository.findById(id);
+        if(mealBooking.isEmpty()){
+            return "The meal booking with that id does not exist";
+        }
+        MealBooking found = mealBooking.get();
+        BookingStatus oldStatus = found.getStatus();
+        if(oldStatus == BookingStatus.BOOKED &&
+                (status == BookingStatus.PREPARED || status == BookingStatus.CANCELLED)){
+            found.setStatus(status);
+            mealBookingRepository.save(found);
+            return "Meal booking status updated successfully";
+        }else if(oldStatus == BookingStatus.PREPARED &&
+                (status == BookingStatus.SERVED || status == BookingStatus.CANCELLED)){
+            found.setStatus(status);
+            mealBookingRepository.save(found);
+            return "Meal booking status updated successfully";
+        }else{
+            return "Cannot change status from " + oldStatus + " to " + status;
         }
     }
 

@@ -58,6 +58,34 @@ public class CatererController {
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
     }
 
+    // D3
+    @PutMapping("/{catererId}/cuisines/{cuisineId}")
+    public ResponseEntity<String> addCuisineToCaterer(@PathVariable UUID catererId, @PathVariable UUID cuisineId){
+        String returnedMsg = catererService.addCuisineToCaterer(catererId, cuisineId);
+        if(returnedMsg.equals("The caterer with that id does not exist") ||
+                returnedMsg.equals("That cuisine does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
+        }else if(returnedMsg.equals("The caterer already has that cuisine")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(returnedMsg);
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+        }
+    }
+
+    // D4
+    @PatchMapping("/{catererId}/counter")
+    public ResponseEntity<String> changeCatererCounter(@PathVariable UUID catererId, @RequestParam int counterNumber){
+        String returnedMsg = catererService.changeCatererCounter(catererId, counterNumber);
+        if(returnedMsg.equals("The caterer with that id does not exist") ||
+                returnedMsg.equals("The counter with that counterNumber does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
+        }else if(returnedMsg.equals("That counter is taken by another caterer")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(returnedMsg);
+        }else{
+            return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+        }
+    }
+
     // C1
     @GetMapping("/by-cuisine")
     public ResponseEntity<?> getCaterersByCuisine(@RequestParam String name){

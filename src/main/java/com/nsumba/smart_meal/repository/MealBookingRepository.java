@@ -19,6 +19,9 @@ public interface MealBookingRepository extends JpaRepository<MealBooking, UUID> 
     @Query("update MealBooking m set m.mealDate = ?1, m.mealType = ?2, m.price = ?3 where m.id = ?4")
     int updateMealBookingById(LocalDate mealDate, String mealType, double price, UUID id);
 
+    // D1
+    boolean existsByCatererIdAndMealDateAndStatusNot(UUID catererId, LocalDate mealDate, BookingStatus status);
+
     // B2
     List<MealBooking> findByStatusOrderByMealDateAsc(BookingStatus status);
 

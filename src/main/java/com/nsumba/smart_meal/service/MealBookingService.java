@@ -14,6 +14,7 @@ public interface MealBookingService {
     Optional<MealBooking> getMealBookingById(UUID id);
     String updateMealBooking(UUID id, MealBooking mealBooking);
     String deleteMealBooking(UUID id);
+    String updateMealBookingStatus(UUID id, BookingStatus status);
     List<MealBooking> getMealBookingsByStatus(BookingStatus status);
     List<MealBooking> getMealBookingsBetween(LocalDate start, LocalDate end);
 }
