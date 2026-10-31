@@ -52,4 +52,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             return "Employee deleted successfully";
         }
     }
+
+    // B1
+    @Override
+    public List<Employee> getEmployeesByLastName(String lastName) {
+        return employeeRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
 }

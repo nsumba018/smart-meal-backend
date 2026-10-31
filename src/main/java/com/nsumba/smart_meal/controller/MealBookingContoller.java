@@ -1,5 +1,6 @@
 package com.nsumba.smart_meal.controller;
 
+import com.nsumba.smart_meal.model.BookingStatus;
 import com.nsumba.smart_meal.model.MealBooking;
 import com.nsumba.smart_meal.service.MealBookingService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,5 +58,21 @@ public class MealBookingContoller {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
         }
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+    }
+
+    // B2
+    @GetMapping("/by-status")
+    public ResponseEntity<?> getMealBookingsByStatus(@RequestParam BookingStatus status){
+        List<MealBooking> mealBookings = mealBookingService.getMealBookingsByStatus(status);
+        return ResponseEntity.status(HttpStatus.OK).body(mealBookings);
+    }
+
+    // B3
+    @GetMapping("/between")
+    public ResponseEntity<?> getMealBookingsBetween(@RequestParam String start, @RequestParam String end){
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        List<MealBooking> mealBookings = mealBookingService.getMealBookingsBetween(startDate, endDate);
+        return ResponseEntity.status(HttpStatus.OK).body(mealBookings);
     }
 }

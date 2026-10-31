@@ -1,11 +1,13 @@
 package com.nsumba.smart_meal.service.impl;
 
+import com.nsumba.smart_meal.model.BookingStatus;
 import com.nsumba.smart_meal.model.MealBooking;
 import com.nsumba.smart_meal.repository.MealBookingRepository;
 import com.nsumba.smart_meal.service.MealBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,5 +53,17 @@ public class MealBookingServiceImpl implements MealBookingService {
             mealBookingRepository.deleteById(id);
             return "Meal booking deleted successfully";
         }
+    }
+
+    // B2
+    @Override
+    public List<MealBooking> getMealBookingsByStatus(BookingStatus status) {
+        return mealBookingRepository.findByStatusOrderByMealDateAsc(status);
+    }
+
+    // B3
+    @Override
+    public List<MealBooking> getMealBookingsBetween(LocalDate start, LocalDate end) {
+        return mealBookingRepository.findByMealDateBetweenOrderByMealDateAsc(start, end);
     }
 }

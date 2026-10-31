@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -15,4 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
     @Modifying
     @Query("update Employee e set e.firstName = ?1, e.lastName = ?2, e.staffNumber = ?3, e.email = ?4, e.department = ?5 where e.id = ?6")
     int updateEmployeeById(String firstName, String lastName, String staffNumber, String email, String department, UUID id);
+
+    // B1
+    List<Employee> findByLastNameIgnoreCaseOrderByFirstNameAsc(String lastName);
 }

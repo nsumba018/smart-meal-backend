@@ -12,4 +12,5 @@ public interface EmployeeService {
     Optional<Employee> getEmployeeById(UUID id);
     String updateEmployee(UUID id, Employee employee);
     String deleteEmployee(UUID id);
+    List<Employee> getEmployeesByLastName(String lastName);
 }
