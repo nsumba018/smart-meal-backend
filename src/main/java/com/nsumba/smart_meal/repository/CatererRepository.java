@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -17,5 +18,8 @@ public interface CatererRepository extends JpaRepository<Caterer, UUID> {
     @Query("update Caterer c set c.firstName = ?1, c.lastName = ?2, c.phone = ?3 where c.id = ?4")
     int updateCatererById(String firstName, String lastName, String phone, @NonNull UUID id);
 
+    // C1
+    @Query("select c from Caterer c join c.cuisines cu where lower(cu.name) = lower(?1)")
+    List<Caterer> findCaterersByCuisine(String name);
 
 }

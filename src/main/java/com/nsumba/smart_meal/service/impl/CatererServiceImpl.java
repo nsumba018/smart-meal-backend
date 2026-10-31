@@ -54,4 +54,10 @@ public class CatererServiceImpl implements CatererService {
         }
 
     }
+
+    // C1
+    @Override
+    public List<Caterer> getCaterersByCuisine(String name) {
+        return catererRepository.findCaterersByCuisine(name);
+    }
 }

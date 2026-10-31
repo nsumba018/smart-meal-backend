@@ -57,4 +57,11 @@ public class CounterController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
     }
+
+    // C2
+    @GetMapping("/free")
+    public ResponseEntity<?> getFreeCounters(){
+        List<Counter> counters = counterService.getFreeCounters();
+        return ResponseEntity.status(HttpStatus.OK).body(counters);
+    }
 }

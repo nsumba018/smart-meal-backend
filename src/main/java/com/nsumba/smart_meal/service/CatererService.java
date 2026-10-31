@@ -12,4 +12,5 @@ public interface CatererService {
     Optional<Caterer> getCatererById(UUID id);
     String updateCaterer(UUID id, Caterer caterer);
     String deleteCaterer(UUID id);
+    List<Caterer> getCaterersByCuisine(String name);
 }

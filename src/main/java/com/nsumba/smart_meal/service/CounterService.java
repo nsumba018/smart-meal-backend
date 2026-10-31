@@ -12,4 +12,5 @@ public interface CounterService {
     Optional<Counter> getCounterById(UUID id);
     String updateCounter(UUID id, Counter counter);
     String deleteCounter(UUID id);
+    List<Counter> getFreeCounters();
 }

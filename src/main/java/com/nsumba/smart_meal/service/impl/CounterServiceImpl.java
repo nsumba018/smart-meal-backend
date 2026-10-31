@@ -54,4 +54,10 @@ public class CounterServiceImpl implements CounterService {
             return "Counter deleted successfully";
         }
     }
+
+    // C2
+    @Override
+    public List<Counter> getFreeCounters() {
+        return counterRepository.findFreeCounters();
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -16,5 +17,11 @@ public interface CounterRepository extends JpaRepository<Counter, UUID> {
     @Query("update Counter c set c.counterNumber = ?1, c.name = ?2 where c.id = ?3")
     int updateCounterById(int counterNumber, String name, UUID id);
 
+    // C2
+    @Query("""
+            select c from Counter c
+            where not exists (select cat from Caterer cat where cat.counter = c)
+            order by c.counterNumber""")
+    List<Counter> findFreeCounters();
 
 }

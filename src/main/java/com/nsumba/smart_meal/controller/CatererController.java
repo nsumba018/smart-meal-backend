@@ -58,5 +58,12 @@ public class CatererController {
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
     }
 
+    // C1
+    @GetMapping("/by-cuisine")
+    public ResponseEntity<?> getCaterersByCuisine(@RequestParam String name){
+        List<Caterer> caterers = catererService.getCaterersByCuisine(name);
+        return ResponseEntity.status(HttpStatus.OK).body(caterers);
+    }
+
 }
 
