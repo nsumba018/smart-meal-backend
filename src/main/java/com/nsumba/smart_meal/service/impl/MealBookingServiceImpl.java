@@ -37,7 +37,7 @@ public class MealBookingServiceImpl implements MealBookingService {
         if(!mealBookingRepository.existsById(id)){
             return "The meal booking with that id does not exist";
         }else{
-            mealBookingRepository.updateMealBookingById(mealBooking.getMealDate(), mealBooking.getStatus(),
+            mealBookingRepository.updateMealBookingById(mealBooking.getMealDate(),
                     mealBooking.getMealType(), mealBooking.getPrice(), id);
             return "Meal booking updated successfully";
         }

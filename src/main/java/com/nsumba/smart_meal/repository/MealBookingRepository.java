@@ -1,6 +1,5 @@
 package com.nsumba.smart_meal.repository;
 
-import com.nsumba.smart_meal.model.BookingStatus;
 import com.nsumba.smart_meal.model.MealBooking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,6 +14,6 @@ import java.util.UUID;
 public interface MealBookingRepository extends JpaRepository<MealBooking, UUID> {
     @Transactional
     @Modifying
-    @Query("update MealBooking m set m.mealDate = ?1, m.status = ?2, m.mealType = ?3, m.price = ?4 where m.id = ?5")
-    int updateMealBookingById(LocalDate mealDate, BookingStatus status, String mealType, double price, UUID id);
+    @Query("update MealBooking m set m.mealDate = ?1, m.mealType = ?2, m.price = ?3 where m.id = ?4")
+    int updateMealBookingById(LocalDate mealDate, String mealType, double price, UUID id);
 }
