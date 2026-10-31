@@ -63,6 +63,8 @@ public class MealBookingContoller {
         String returnedMsg = mealBookingService.deleteMealBooking(id);
         if(returnedMsg.equals("The meal booking with that id does not exist")){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(returnedMsg);
+        }else if(returnedMsg.equals("That meal booking has payroll deductions, delete them first")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(returnedMsg);
         }
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
     }

@@ -3,6 +3,7 @@ package com.nsumba.smart_meal.service.impl;
 import com.nsumba.smart_meal.model.BookingStatus;
 import com.nsumba.smart_meal.model.MealBooking;
 import com.nsumba.smart_meal.repository.MealBookingRepository;
+import com.nsumba.smart_meal.repository.PayrollDeductionRepository;
 import com.nsumba.smart_meal.service.MealBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class MealBookingServiceImpl implements MealBookingService {
 
     @Autowired
     private MealBookingRepository mealBookingRepository;
+
+    @Autowired
+    private PayrollDeductionRepository payrollDeductionRepository;
 
     @Override
     public String saveMealBooking(MealBooking mealBooking) {
@@ -59,6 +63,9 @@ public class MealBookingServiceImpl implements MealBookingService {
     public String deleteMealBooking(UUID id) {
         if(!mealBookingRepository.existsById(id)){
             return "The meal booking with that id does not exist";
+        }else if(payrollDeductionRepository.existsByMealBookingId(id)){
+            // E3
+            return "That meal booking has payroll deductions, delete them first";
         }else{
             mealBookingRepository.deleteById(id);
             return "Meal booking deleted successfully";
