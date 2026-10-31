@@ -1,6 +1,7 @@
 package com.nsumba.smart_meal.controller;
 
 import com.nsumba.smart_meal.model.Employee;
+import com.nsumba.smart_meal.service.CatererService;
 import com.nsumba.smart_meal.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final CatererService catererService;
 
     @PostMapping("/save")
     public ResponseEntity<String> saveEmployee(@RequestBody Employee employee){
@@ -62,6 +64,16 @@ public class EmployeeController {
     @GetMapping("/by-last-name")
     public ResponseEntity<?> getEmployeesByLastName(@RequestParam String lastName){
         List<Employee> employees = employeeService.getEmployeesByLastName(lastName);
+        return ResponseEntity.status(HttpStatus.OK).body(employees);
+    }
+
+    // C4
+    @GetMapping("/of-caterer/{catererId}")
+    public ResponseEntity<?> getEmployeesOfCaterer(@PathVariable UUID catererId){
+        if(!catererService.catererExists(catererId)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The caterer with that id does not exist");
+        }
+        List<Employee> employees = employeeService.getEmployeesOfCaterer(catererId);
         return ResponseEntity.status(HttpStatus.OK).body(employees);
     }
 }

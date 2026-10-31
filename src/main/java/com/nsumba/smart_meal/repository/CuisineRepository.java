@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -15,4 +16,8 @@ public interface CuisineRepository extends JpaRepository<Cuisine, UUID> {
     @Modifying
     @Query("update Cuisine c set c.name = ?1 where c.id = ?2")
     int updateCuisineById(String name, UUID id);
+
+    // C3
+    @Query("select c from Cuisine c where c.caterers is empty")
+    List<Cuisine> findUnusedCuisines();
 }

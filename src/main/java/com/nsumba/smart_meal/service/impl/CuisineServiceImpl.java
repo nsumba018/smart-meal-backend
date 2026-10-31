@@ -51,4 +51,10 @@ public class CuisineServiceImpl implements CuisineService {
             return "Cuisine deleted successfully";
         }
     }
+
+    // C3
+    @Override
+    public List<Cuisine> getUnusedCuisines() {
+        return cuisineRepository.findUnusedCuisines();
+    }
 }

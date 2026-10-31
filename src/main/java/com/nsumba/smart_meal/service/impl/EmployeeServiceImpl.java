@@ -58,4 +58,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeesByLastName(String lastName) {
         return employeeRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
     }
+
+    // C4
+    @Override
+    public List<Employee> getEmployeesOfCaterer(UUID catererId) {
+        return employeeRepository.findEmployeesOfCaterer(catererId);
+    }
 }

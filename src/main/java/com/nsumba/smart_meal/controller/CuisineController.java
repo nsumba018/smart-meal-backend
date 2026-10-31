@@ -57,4 +57,11 @@ public class CuisineController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
     }
+
+    // C3
+    @GetMapping("/unused")
+    public ResponseEntity<?> getUnusedCuisines(){
+        List<Cuisine> cuisines = cuisineService.getUnusedCuisines();
+        return ResponseEntity.status(HttpStatus.OK).body(cuisines);
+    }
 }

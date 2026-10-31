@@ -60,4 +60,9 @@ public class CatererServiceImpl implements CatererService {
     public List<Caterer> getCaterersByCuisine(String name) {
         return catererRepository.findCaterersByCuisine(name);
     }
+
+    @Override
+    public boolean catererExists(UUID id) {
+        return catererRepository.existsById(id);
+    }
 }

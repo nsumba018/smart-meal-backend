@@ -13,4 +13,5 @@ public interface CatererService {
     String updateCaterer(UUID id, Caterer caterer);
     String deleteCaterer(UUID id);
     List<Caterer> getCaterersByCuisine(String name);
+    boolean catererExists(UUID id);
 }

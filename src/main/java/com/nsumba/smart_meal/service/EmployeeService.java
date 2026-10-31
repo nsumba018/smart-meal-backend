@@ -13,4 +13,5 @@ public interface EmployeeService {
     String updateEmployee(UUID id, Employee employee);
     String deleteEmployee(UUID id);
     List<Employee> getEmployeesByLastName(String lastName);
+    List<Employee> getEmployeesOfCaterer(UUID catererId);
 }

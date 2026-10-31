@@ -19,4 +19,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
     // B1
     List<Employee> findByLastNameIgnoreCaseOrderByFirstNameAsc(String lastName);
+
+    // C4
+    @Query("select distinct m.employee from MealBooking m where m.caterer.id = ?1")
+    List<Employee> findEmployeesOfCaterer(UUID catererId);
 }

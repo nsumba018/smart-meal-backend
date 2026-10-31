@@ -12,4 +12,5 @@ public interface CuisineService {
     Optional<Cuisine> getCuisineById(UUID id);
     String updateCuisine(UUID id, Cuisine cuisine);
     String deleteCuisine(UUID id);
+    List<Cuisine> getUnusedCuisines();
 }
