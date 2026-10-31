@@ -22,6 +22,19 @@ public interface MealBookingRepository extends JpaRepository<MealBooking, UUID> 
     // D1
     boolean existsByCatererIdAndMealDateAndStatusNot(UUID catererId, LocalDate mealDate, BookingStatus status);
 
+    // F1
+    @Query("select m.status, count(m) from MealBooking m group by m.status")
+    List<Object[]> countMealBookingsByStatus();
+
+    // F2
+    @Transactional
+    @Modifying
+    @Query("""
+            update MealBooking m set m.status = com.nsumba.smart_meal.model.BookingStatus.CANCELLED
+            where m.caterer.id = ?1 and m.mealDate = ?2
+            and m.status <> com.nsumba.smart_meal.model.BookingStatus.SERVED""")
+    int cancelDayOfCaterer(UUID catererId, LocalDate date);
+
     // B2
     List<MealBooking> findByStatusOrderByMealDateAsc(BookingStatus status);
 

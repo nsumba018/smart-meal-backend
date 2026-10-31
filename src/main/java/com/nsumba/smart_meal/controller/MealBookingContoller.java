@@ -82,6 +82,21 @@ public class MealBookingContoller {
         }
     }
 
+    // F1
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<?> countMealBookingsByStatus(){
+        List<Object[]> stats = mealBookingService.countMealBookingsByStatus();
+        return ResponseEntity.status(HttpStatus.OK).body(stats);
+    }
+
+    // F2
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<String> cancelDayOfCaterer(@RequestParam UUID catererId, @RequestParam String date){
+        LocalDate theDate = LocalDate.parse(date);
+        String returnedMsg = mealBookingService.cancelDayOfCaterer(catererId, theDate);
+        return ResponseEntity.status(HttpStatus.OK).body(returnedMsg);
+    }
+
     // B2
     @GetMapping("/by-status")
     public ResponseEntity<?> getMealBookingsByStatus(@RequestParam BookingStatus status){

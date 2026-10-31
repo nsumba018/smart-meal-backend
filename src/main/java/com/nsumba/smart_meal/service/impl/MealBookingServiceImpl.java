@@ -96,6 +96,19 @@ public class MealBookingServiceImpl implements MealBookingService {
         }
     }
 
+    // F1
+    @Override
+    public List<Object[]> countMealBookingsByStatus() {
+        return mealBookingRepository.countMealBookingsByStatus();
+    }
+
+    // F2
+    @Override
+    public String cancelDayOfCaterer(UUID catererId, LocalDate date) {
+        int howMany = mealBookingRepository.cancelDayOfCaterer(catererId, date);
+        return howMany + " meal bookings cancelled";
+    }
+
     // B2
     @Override
     public List<MealBooking> getMealBookingsByStatus(BookingStatus status) {
